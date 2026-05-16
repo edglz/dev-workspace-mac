@@ -20,9 +20,9 @@ adjust-cell-height = 8%
 #   cyan/teal  -> path             yellow -> git clean
 #   mauve      -> git dirty        red    -> git behind / error
 #   green      -> prompt OK        blue   -> cursor
-# Swap to "catppuccin-macchiato" (slightly lighter), "catppuccin-frappe"
-# (medium), or "catppuccin-latte" (light) without changing anything else.
-theme = "catppuccin-mocha"
+# Swap to "Catppuccin Macchiato" (slightly lighter), "Catppuccin Frappe"
+# (medium), or "Catppuccin Latte" (light) without changing anything else.
+theme = "Catppuccin Mocha"
 
 # ── Window ────────────────────────────────────────────────────────────────
 window-padding-x = 14
