@@ -28,6 +28,7 @@ The installer is idempotent: rerun it any time. Use `--skip-brew`, `--skip-pip`,
 - **Powerlevel10k** prompt (`p10k.zsh`) — two-line theme matching the Windows workspace palette (cyan paths, yellow git, magenta when dirty, gray timing).
 - **Ghostty config** (`ghostty/config`) — MesloLGS NF font, Tokyo Night palette, blur, sensible splits/keybinds.
 - **Claude Code `settings.json`** — Bash allow/ask rules tailored for macOS toolchain (brew, pod, fastlane, xcrun, adb, colima, etc.), no auto-attribution.
+- **Claude Code `statusLine`** — bash script (`claude/statusline.sh`, symlinked to `~/.claude/statusline.sh`) that mirrors the Powerlevel10k line-1: cyan path (last 3 segments), git branch with the same color logic (yellow clean / magenta dirty / cyan ahead / red behind), and project-triggered node/python/go versions on the right.
 
 ## Profile commands
 
@@ -124,7 +125,9 @@ dev-workspace-mac/
   p10k.zsh                        Powerlevel10k theme (sourced as ~/.p10k.zsh)
   ghostty/
     config                        Ghostty config (symlinked to ~/.config/ghostty/config)
-  settings.template.json          Claude Code settings template
+  claude/
+    statusline.sh                 Claude Code statusLine script (symlinked to ~/.claude/statusline.sh)
+  settings.template.json          Claude Code settings template (statusLine + permissions + attribution)
   .gitignore
   .github/
     ISSUE_TEMPLATE/               bug + feature templates

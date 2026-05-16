@@ -163,17 +163,26 @@ if ! $SKIP_GHOSTTY; then
   done_msg "$target -> $ROOT/ghostty/config"
 fi
 
-# ── 6. Claude Code settings.json ──────────────────────────────────────────
+# ── 6. Claude Code settings.json + statusline.sh ──────────────────────────
 if ! $SKIP_SETTINGS; then
-  step "Claude settings.json"
+  step "Claude statusline.sh"
   mkdir -p "$HOME/.claude"
+  statusline_target="$HOME/.claude/statusline.sh"
+  if [[ -e "$statusline_target" && ! -L "$statusline_target" ]]; then
+    cp "$statusline_target" "$statusline_target.bak.$(date +%Y%m%d%H%M%S)"
+    warn "backed up existing $statusline_target"
+  fi
+  ln -sf "$ROOT/claude/statusline.sh" "$statusline_target"
+  done_msg "$statusline_target -> $ROOT/claude/statusline.sh"
+
+  step "Claude settings.json"
   target="$HOME/.claude/settings.json"
   template="$ROOT/settings.template.json"
 
   if [[ -f "$target" ]]; then
     cp "$target" "$target.bak.$(date +%Y%m%d%H%M%S)"
     done_msg "backup -> $target.bak.*"
-    # Merge: template wins for attribution + permissions, current keeps everything else.
+    # Merge: template wins for attribution + permissions + statusLine, current keeps everything else.
     if command -v jq >/dev/null 2>&1; then
       tmp="$(mktemp)"
       jq -s '
@@ -181,6 +190,7 @@ if ! $SKIP_SETTINGS; then
         | $cur
         | .attribution = $tpl.attribution
         | .permissions = $tpl.permissions
+        | .statusLine  = $tpl.statusLine
       ' "$target" "$template" > "$tmp" && mv "$tmp" "$target"
       done_msg "merged into $target"
     else
