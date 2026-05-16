@@ -3,8 +3,7 @@
 # Mirrors the Scoop manifest in edglz/dev-workspace, adapted for macOS.
 
 # ── Taps ──────────────────────────────────────────────────────────────────
-tap "homebrew/bundle"
-tap "homebrew/services"
+# homebrew/bundle and homebrew/services are now built into brew (deprecated as separate taps).
 tap "hashicorp/tap"
 tap "oven-sh/bun"
 tap "supabase/tap"
@@ -17,11 +16,9 @@ brew "ripgrep"      # grep
 brew "fd"           # find
 brew "sd"           # sed
 brew "git-delta"    # diff (pager)
-brew "difftastic"   # diff (structural) — binary: difft
 brew "zoxide"       # cd
 brew "dust"         # du
 brew "duf"          # df
-brew "xh"           # curl
 brew "doggo"        # dig — modern DNS client (replaces ogham/dog, no longer maintained)
 brew "btop"         # top
 brew "procs"        # ps
@@ -55,7 +52,6 @@ brew "git"          # newer than Apple Git
 brew "git-lfs"
 
 # ── Cloud / tunnels ───────────────────────────────────────────────────────
-brew "ngrok/ngrok/ngrok"
 brew "cloudflared"
 brew "rclone"
 
@@ -77,7 +73,6 @@ brew "kubectx"             # ships kubens too
 brew "helm"
 brew "stern"
 brew "dive"
-brew "minikube"
 brew "kind"
 
 # ── IaC ───────────────────────────────────────────────────────────────────
@@ -92,7 +87,7 @@ brew "swiftlint"
 brew "swiftformat"
 brew "ios-deploy"
 brew "watchman"             # React Native + Metro file watcher
-brew "android-platform-tools"  # adb, fastboot
+cask "android-platform-tools"  # adb, fastboot (migrated from formula to cask)
 brew "scrcpy"               # Android screen mirror
 
 # ── Mac-native quality-of-life ────────────────────────────────────────────
@@ -107,9 +102,6 @@ brew "tree"
 brew "ncdu"
 brew "htop"
 brew "jq"                   # ubiquitous classic, complements jaq
-brew "gnupg"
-brew "mas"                  # Mac App Store CLI
-brew "mackup"               # backup config files to cloud
 brew "trash"                # safer rm — sends to Trash
 
 # ── Misc ──────────────────────────────────────────────────────────────────

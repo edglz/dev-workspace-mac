@@ -16,8 +16,6 @@
       "Bash(dust:*)",
       "Bash(duf:*)",
       "Bash(delta:*)",
-      "Bash(difft:*)",
-      "Bash(xh:*)",
       "Bash(doggo:*)",
       "Bash(btop:*)",
       "Bash(procs:*)",
@@ -41,7 +39,6 @@
       "Bash(ncdu:*)",
       "Bash(htop:*)",
       "Bash(brew:*)",
-      "Bash(mas:*)",
       "Bash(trash:*)",
       "Bash(git:*)",
       "Bash(gh:*)",
@@ -95,7 +92,6 @@
       "Bash(redis-cli:*)",
       "Bash(mongosh:*)",
       "Bash(grpcurl:*)",
-      "Bash(ngrok:*)",
       "Bash(cloudflared:*)",
       "Bash(rclone:*)",
       "Bash(wrangler:*)",
@@ -109,7 +105,6 @@
       "Bash(helm:*)",
       "Bash(stern:*)",
       "Bash(dive:*)",
-      "Bash(minikube:*)",
       "Bash(kind:*)",
       "Bash(ws:*)",
       "Bash(workspace:*)",
@@ -162,7 +157,6 @@
       "Bash(helm uninstall:*)",
       "Bash(helm delete:*)",
       "Bash(kubectl delete:*)",
-      "Bash(minikube delete:*)",
       "Bash(kind delete:*)",
       "Bash(supabase db reset:*)",
       "Bash(supabase migration repair:*)",
@@ -177,8 +171,7 @@
       "Bash(xcrun simctl delete:*)",
       "Bash(adb uninstall:*)",
       "Bash(adb shell pm uninstall:*)",
-      "Bash(scrcpy --kill-adb-on-close:*)",
-      "Bash(mas uninstall:*)"
+      "Bash(scrcpy --kill-adb-on-close:*)"
     ],
     "deny": []
   }

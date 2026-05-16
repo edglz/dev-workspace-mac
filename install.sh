@@ -125,14 +125,15 @@ if ! $SKIP_PIP; then
       brew install pipx
       pipx ensurepath >/dev/null
     fi
-    for pkg in httpie posting pgcli; do
+    # httpie comes from Homebrew (binary `http`); pipx only handles tools without a brew formula.
+    for pkg in posting pgcli; do
       if pipx list --short 2>/dev/null | grep -q "^$pkg "; then
         skip "$pkg (pipx)"
       else
         pipx install "$pkg"
       fi
     done
-    done_msg "httpie, posting, pgcli (via pipx)"
+    done_msg "posting, pgcli (via pipx)"
   fi
 fi
 
