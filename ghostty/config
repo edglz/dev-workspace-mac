@@ -12,32 +12,17 @@ font-thicken = true
 # Adjust line height for two-line prompts to breathe.
 adjust-cell-height = 8%
 
-# ── Theme — dark with cyan/yellow/magenta accents matching the omp theme ─
-theme = "GruvboxDarkHard"
-# Override theme to match the windows workspace palette more closely.
-background = "1a1b26"
-foreground = "c0caf5"
-cursor-color = "7aa2f7"
-selection-background = "33467c"
-selection-foreground = "c0caf5"
-
-# ANSI palette (Tokyo Night-ish, tweaked so cyan path / yellow git pop)
-palette = 0=#15161e
-palette = 1=#f7768e
-palette = 2=#9ece6a
-palette = 3=#e0af68
-palette = 4=#7aa2f7
-palette = 5=#bb9af7
-palette = 6=#7dcfff
-palette = 7=#a9b1d6
-palette = 8=#414868
-palette = 9=#f7768e
-palette = 10=#9ece6a
-palette = 11=#e0af68
-palette = 12=#7aa2f7
-palette = 13=#bb9af7
-palette = 14=#7dcfff
-palette = 15=#c0caf5
+# ── Theme — Catppuccin Mocha ──────────────────────────────────────────────
+# Built-in theme; sets background/foreground/cursor/selection and the 16 ANSI
+# palette colours. The Powerlevel10k prompt and the Claude Code statusLine use
+# semantic names (cyan/yellow/magenta/red/green), so they pick up this palette
+# automatically:
+#   cyan/teal  -> path             yellow -> git clean
+#   mauve      -> git dirty        red    -> git behind / error
+#   green      -> prompt OK        blue   -> cursor
+# Swap to "catppuccin-macchiato" (slightly lighter), "catppuccin-frappe"
+# (medium), or "catppuccin-latte" (light) without changing anything else.
+theme = "catppuccin-mocha"
 
 # ── Window ────────────────────────────────────────────────────────────────
 window-padding-x = 14
