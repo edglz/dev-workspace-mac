@@ -440,8 +440,13 @@ workspace() {
 }
 alias ws=workspace
 
-# ── Welcome banner (only interactive, not when WORKSPACE_QUIET=1) ─────────
-if [[ -o interactive && -z "${WORKSPACE_QUIET:-}" ]]; then
+# ── Welcome banner (top-level interactive only, not when WORKSPACE_QUIET=1) ─
+# Runs fastfetch once on a fresh terminal (or `exec zsh`) and prints the
+# workspace ready line right below it. SHLVL=1 guards against nested shells
+# (`zsh` inside zsh, sub-shells launched by scripts) so the big banner does
+# not re-print every time something spawns a child zsh.
+if [[ -o interactive && -z "${WORKSPACE_QUIET:-}" && "${SHLVL:-1}" -eq 1 ]]; then
+  command -v fastfetch >/dev/null && fastfetch
   printf '%sWorkspace ready.%s Try %sws%s (overview), %scheat%s (tools), %srules%s (perms).\n' \
     "$(ws_color gray)" "$(ws_color reset)" \
     "$(ws_color cyan)" "$(ws_color reset)" \

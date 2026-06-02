@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `Brewfile`: ship `fastfetch` so the welcome banner command in `cheat`/`ws`
   flows resolves without "command not found" after a fresh install.
+- `zshrc`: auto-run `fastfetch` on top-level interactive shells (guarded by
+  `SHLVL == 1` and `WORKSPACE_QUIET`), with the `Workspace ready.` line
+  rendered right below it so opening a Ghostty window or `exec zsh` greets
+  you with the system banner instead of an empty prompt.
 
 ### Changed
 
