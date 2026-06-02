@@ -25,7 +25,7 @@ The installer is idempotent: rerun it any time. Use `--skip-brew`, `--skip-pip`,
 - **3 Python tools via `pipx`**: `httpie`, `posting`, `pgcli`.
 - **3 npm globals**: `wrangler`, `@expo/cli`, `@anthropic-ai/claude-code`.
 - **Oh My Zsh** with 20+ plugins (git, gh, docker, kubectl, helm, terraform, node, python, golang, brew, macos, fzf, z, autosuggestions, syntax-highlighting, completions, fzf-tab).
-- **Powerlevel10k** prompt (`p10k.zsh`) — two-line theme matching the Windows workspace palette (cyan paths, yellow git, magenta when dirty, gray timing).
+- **Powerlevel10k** prompt (`p10k.zsh`) — single-line robbyrussell-style theme: green `➜` on success / red on failure, cyan folder (basename only), `git:(branch)` wrapper in cyan with red branch + yellow `✗` when dirty + cyan/red `↑N`/`↓N` for ahead/behind, dark gray execution time when over 500 ms, right prompt with node / python / go versions (project-triggered).
 - **Ghostty config** (`ghostty/config`) — MesloLGS NF font, Tokyo Night palette, blur, sensible splits/keybinds.
 - **Claude Code `settings.json`** — Bash allow/ask rules tailored for macOS toolchain (brew, pod, fastlane, xcrun, adb, colima, etc.), no auto-attribution.
 - **Claude Code `statusLine`** — bash script (`claude/statusline.sh`, symlinked to `~/.claude/statusline.sh`) that mirrors the Powerlevel10k line-1: cyan path (last 3 segments), git branch with the same color logic (yellow clean / magenta dirty / cyan ahead / red behind), and project-triggered node/python/go versions on the right.

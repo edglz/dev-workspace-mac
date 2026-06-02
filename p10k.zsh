@@ -1,9 +1,11 @@
 # dev-workspace-mac — Powerlevel10k config
-# Mirrors workspace.omp.json from edglz/dev-workspace:
-#   line 1 left:   path (cyan, agnoster-short, depth 3) → git → execution time (>500ms)
-#   line 1 right:  node, python, go versions (file-triggered)
-#   line 2 left:   prompt ❯ (green / red on non-zero exit)
-#   transient:     ❯
+# Single-line prompt emulating the robbyrussell look:
+#   left:    ➜  folder git:(branch) ✗  [exec time if >500ms]
+#   right:   node, python, go versions (file-triggered)
+#   colors:  green ➜ on success / red ➜ on failure
+#            cyan folder + cyan git:() wrapper + red branch + yellow ✗ when dirty
+#            cyan ↑N when ahead / red ↓N when behind
+#   transient: ➜  on accepted lines
 #
 # Tweak with `p10k configure` if you want the full wizard.
 
@@ -21,12 +23,12 @@
   unset -m '(POWERLEVEL9K_*|DEFAULT_USER)~POWERLEVEL9K_GITSTATUS_DIR'
 
   # ── Segments ────────────────────────────────────────────────────────────
+  # Single-line, robbyrussell-style: ➜ first, then folder, then git:(branch).
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
+    prompt_char
     dir
     vcs
     command_execution_time
-    newline
-    prompt_char
   )
 
   typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
@@ -46,10 +48,10 @@
   typeset -g POWERLEVEL9K_RULER_CHAR=
   typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_CHAR=' '
 
-  # ── dir (path) — cyan, agnoster-short, max depth 3 ──────────────────────
+  # ── dir (path) — cyan, only the current folder (robbyrussell %c) ────────
   typeset -g POWERLEVEL9K_DIR_FOREGROUND=cyan
-  typeset -g POWERLEVEL9K_SHORTEN_STRATEGY=truncate_to_unique
-  typeset -g POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
+  typeset -g POWERLEVEL9K_SHORTEN_STRATEGY=truncate_to_last
+  typeset -g POWERLEVEL9K_SHORTEN_DIR_LENGTH=0
   typeset -g POWERLEVEL9K_SHORTEN_DELIMITER=
   typeset -g POWERLEVEL9K_DIR_MAX_LENGTH=80
   typeset -g POWERLEVEL9K_DIR_TRUNCATE_BEFORE_MARKER=false
@@ -59,12 +61,14 @@
   typeset -g POWERLEVEL9K_FOLDER_ICON=
   typeset -g POWERLEVEL9K_ETC_ICON=
 
-  # ── vcs (git) — yellow clean, magenta dirty, red behind, cyan ahead ────
-  typeset -g POWERLEVEL9K_VCS_BRANCH_ICON=$' '   # nerd-font git branch
+  # ── vcs (git) — robbyrussell-style `git:(branch)` wrapper ─────────────
+  # Wrapper in cyan, branch in red, yellow ✗ when dirty,
+  # cyan ↑N when ahead, red ↓N when behind.
+  typeset -g POWERLEVEL9K_VCS_BRANCH_ICON=
   typeset -g POWERLEVEL9K_VCS_GIT_HOOKS=(vcs-detect-changes git-aheadbehind)
-  typeset -g POWERLEVEL9K_VCS_CLEAN_FOREGROUND=yellow
-  typeset -g POWERLEVEL9K_VCS_MODIFIED_FOREGROUND=magenta
-  typeset -g POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND=magenta
+  typeset -g POWERLEVEL9K_VCS_CLEAN_FOREGROUND=cyan
+  typeset -g POWERLEVEL9K_VCS_MODIFIED_FOREGROUND=cyan
+  typeset -g POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND=cyan
   typeset -g POWERLEVEL9K_VCS_CONFLICTED_FOREGROUND=red
   typeset -g POWERLEVEL9K_VCS_LOADING_FOREGROUND=gray
 
@@ -74,22 +78,13 @@
       typeset -g my_git_format=$P9K_CONTENT
       return
     fi
-    local fg=$VCS_STATUS_FG
-    if (( VCS_STATUS_COMMITS_BEHIND > 0 )); then
-      fg='%F{red}'
-    elif (( VCS_STATUS_COMMITS_AHEAD > 0 )); then
-      fg='%F{cyan}'
-    elif (( VCS_STATUS_HAS_UNSTAGED || VCS_STATUS_HAS_STAGED || VCS_STATUS_HAS_UNTRACKED )); then
-      fg='%F{magenta}'
-    else
-      fg='%F{yellow}'
-    fi
-    local res="${fg} ${VCS_STATUS_LOCAL_BRANCH:-${VCS_STATUS_COMMIT[1,8]}}"
+    local branch="${VCS_STATUS_LOCAL_BRANCH:-${VCS_STATUS_COMMIT[1,8]}}"
+    local res="%F{cyan}git:(%F{red}${branch}%F{cyan})%f"
     if (( VCS_STATUS_HAS_UNSTAGED || VCS_STATUS_HAS_STAGED || VCS_STATUS_HAS_UNTRACKED )); then
-      res+=' *'
+      res+=" %F{yellow}✗%f"
     fi
-    (( VCS_STATUS_COMMITS_AHEAD  )) && res+=" ↑${VCS_STATUS_COMMITS_AHEAD}"
-    (( VCS_STATUS_COMMITS_BEHIND )) && res+=" ↓${VCS_STATUS_COMMITS_BEHIND}"
+    (( VCS_STATUS_COMMITS_AHEAD  )) && res+=" %F{cyan}↑${VCS_STATUS_COMMITS_AHEAD}%f"
+    (( VCS_STATUS_COMMITS_BEHIND )) && res+=" %F{red}↓${VCS_STATUS_COMMITS_BEHIND}%f"
     typeset -g my_git_format=$res
   }
   functions -M my_git_formatter 2>/dev/null
@@ -101,14 +96,14 @@
   typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND=242
   typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_FORMAT='d h m s'
 
-  # ── prompt_char — green ❯ on success, red on failure ────────────────────
+  # ── prompt_char — green ➜ on success, red ➜ on failure ────────────────
   typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=green
   typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=red
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIINS_CONTENT_EXPANSION='❯'
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIINS_CONTENT_EXPANSION='➜'
   typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VICMD_CONTENT_EXPANSION='❮'
   typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIVIS_CONTENT_EXPANSION='V'
   typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIOWR_CONTENT_EXPANSION='▶'
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL=''
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL=' '
 
   # ── Right-prompt runtime versions ───────────────────────────────────────
   typeset -g POWERLEVEL9K_NODE_VERSION_FOREGROUND=green

@@ -112,7 +112,7 @@ brew "zsh-syntax-highlighting"
 brew "zsh-completions"
 
 # ── Casks ─────────────────────────────────────────────────────────────────
-cask "docker"                            # Docker Desktop (per user choice)
+cask "docker-desktop"                    # Docker Desktop (renamed from "docker" cask 2025-Q3)
 cask "flutter"                           # Flutter SDK
 cask "temurin@21"                        # Eclipse Temurin JDK 21 LTS
 cask "font-meslo-lg-nerd-font"           # required by Powerlevel10k

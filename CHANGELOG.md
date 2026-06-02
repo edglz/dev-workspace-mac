@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+- Powerlevel10k prompt redesigned to a single-line robbyrussell-style look:
+  green `➜` (red on failure) + cyan folder basename + `git:(branch)` wrapper
+  (cyan parens, red branch, yellow `✗` when dirty, cyan/red `↑N`/`↓N`).
+- `Brewfile`: renamed `cask "docker"` → `cask "docker-desktop"` because
+  Homebrew renamed the cask in 2025-Q3. `brew bundle check` was failing on
+  every re-run until this landed.
+
 ## [0.1.0] — 2026-05-16
 
 ### Added
