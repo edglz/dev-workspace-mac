@@ -105,6 +105,7 @@ brew "jq"                   # ubiquitous classic, complements jaq
 brew "trash"                # safer rm — sends to Trash
 
 # ── Misc ──────────────────────────────────────────────────────────────────
+brew "fastfetch"            # system info banner (the welcome `fastfetch` cmd)
 brew "glow"                 # markdown viewer
 brew "romkatv/powerlevel10k/powerlevel10k"  # prompt theme
 brew "zsh-autosuggestions"

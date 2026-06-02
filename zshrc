@@ -25,6 +25,12 @@ export WORKSPACE_ROOT
 # ── Oh My Zsh ─────────────────────────────────────────────────────────────
 export ZSH="${ZSH:-$HOME/.oh-my-zsh}"
 
+# Homebrew keeps /opt/homebrew/share group-writable so multiple admin users
+# share a prefix without sudo. zsh's compinit treats g+w dirs as "insecure"
+# and refuses to load completions from them until they are chmod'd, but the
+# permission is intentional — silence the check instead of fighting brew.
+export ZSH_DISABLE_COMPFIX=true
+
 # Powerlevel10k as theme (installed via Homebrew tap and via Oh My Zsh custom)
 # Prefer the brew-managed copy; fall back to a custom clone if present.
 if [[ -d "$ZSH/custom/themes/powerlevel10k" ]]; then

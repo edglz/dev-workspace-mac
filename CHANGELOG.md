@@ -7,11 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `Brewfile`: ship `fastfetch` so the welcome banner command in `cheat`/`ws`
+  flows resolves without "command not found" after a fresh install.
+
 ### Changed
 
 - Powerlevel10k prompt redesigned to a single-line robbyrussell-style look:
   green `➜` (red on failure) + cyan folder basename + `git:(branch)` wrapper
   (cyan parens, red branch, yellow `✗` when dirty, cyan/red `↑N`/`↓N`).
+- `zshrc`: set `ZSH_DISABLE_COMPFIX=true` before sourcing Oh My Zsh. Homebrew
+  keeps `/opt/homebrew/share` group-writable on purpose (multi-admin prefix);
+  zsh's compinit prints an "insecure directories detected" warning on every
+  `exec zsh` until silenced. The shipped fix `compaudit | xargs chmod g-w,o-w`
+  is reverted the next time `brew install` touches the dir, so disabling the
+  check at the zshrc layer is the durable answer.
 - `Brewfile`: renamed `cask "docker"` → `cask "docker-desktop"` because
   Homebrew renamed the cask in 2025-Q3. `brew bundle check` was failing on
   every re-run until this landed.
